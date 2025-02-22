@@ -1,7 +1,13 @@
+using CRUDExample.ServiceContracts;
+using CRUDExample.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<ICountriesService,CountriesService>();
+builder.Services.AddSingleton<IPersonsService,PersonsService>();
 
 var app = builder.Build();
 
@@ -20,10 +26,7 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+app.MapControllers();
 
 
 app.Run();
